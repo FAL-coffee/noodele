@@ -1,0 +1,7 @@
+FROM node:16.13.0
+WORKDIR /src
+ENV PATH /src/node_modules/.bin:$PATH
+RUN npm i
+COPY package.json ./
+COPY . .
+EXPOSE 3000
