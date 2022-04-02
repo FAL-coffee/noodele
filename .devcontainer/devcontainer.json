@@ -1,0 +1,25 @@
+{
+    "name": "noodele_dev",
+    "dockerComposeFile": [
+        "../docker-compose.yml"
+    ],
+    "service": "noodele-dev",
+    "workspaceFolder": "/src",
+    "settings": {
+        "files.trimTrailingWhitespace": true,
+        "editor.formatOnSave": true,
+        "typescript.updateImportsOnFileMove.enabled": "always",
+        "javascript.updateImportsOnFileMove.enabled": "always",
+        "prettier.tabWidth": 2,
+        "[typescriptreact]": {
+            "editor.defaultFormatter": "svipas.prettier-plus"
+        },
+    },
+    "extensions": [
+        "eamodio.gitlens",
+        "svipas.prettier-plus",
+        "dbaeumer.vscode-eslint",
+        "ms-ceintl.vscode-language-pack-ja",
+    ],
+    "postCreateCommand": "apt-get update && apt-get install -y git"
+}
