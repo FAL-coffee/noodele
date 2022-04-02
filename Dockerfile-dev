@@ -1,0 +1,6 @@
+FROM node:16.13.0
+WORKDIR /src
+ENV PATH /src/node_modules/.bin:$PATH
+COPY . .
+RUN npm install
+EXPOSE 3000
