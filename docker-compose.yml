@@ -4,5 +4,6 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile-dev
+    tty: true
     volumes:
       - ../../src:/usr/app/src
