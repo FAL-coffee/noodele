@@ -7,6 +7,6 @@ import  { Response } from 'express'
 
 
 /* GET users listing. */
-export const index = ( res: Response) => {
+export const index = ( res: Response ) => {
   res.send('respond with a resource');
 };
