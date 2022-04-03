@@ -1,8 +1,12 @@
-import express, { Response } from 'express'
-var router = express.Router();
+import  { Response } from 'express'
+// var router = express.Router();
+
+// export default router.get('/', (res:Response) => {
+//   res.send('respond with a resource');
+// });
+
 
 /* GET users listing. */
-export default router.get('/', (res:Response) => {
+export const index = ( res: Response) => {
   res.send('respond with a resource');
-});
-
+};
