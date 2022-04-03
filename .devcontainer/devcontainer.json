@@ -11,6 +11,7 @@
         "typescript.updateImportsOnFileMove.enabled": "always",
         "javascript.updateImportsOnFileMove.enabled": "always",
         "prettier.tabWidth": 2,
+        "editor.defaultFormatter": "svipas.prettier-plus",
         "[typescriptreact]": {
             "editor.defaultFormatter": "svipas.prettier-plus"
         },
