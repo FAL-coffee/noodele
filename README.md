@@ -2,4 +2,8 @@
 
 nodeとnoodleが掛かってます。
 
-node.jsのクソコードの投稿掲示板サイトです。
+node.jsに限定したクソコードの投稿掲示板サイトです。
+
+express,
+postgres,
+ts
