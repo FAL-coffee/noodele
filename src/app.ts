@@ -12,7 +12,7 @@ const app = express();
 
 // view engine setupts
 
-app.set("view engine", "jade");
+app.set("view engine", "pug");
 // app.set("/views", path.join(__dirname, "../views"));
 app.set("views", "./src/views");
 // app.set("view engine", "jade");
