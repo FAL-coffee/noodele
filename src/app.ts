@@ -2,15 +2,15 @@
 // import { HttpError } from "http-errors";
 import express, { Request, Response } from "express";
 // import express from 'express
-import { Pool } from "pg";
+// import { Pool } from "pg";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-
+import { PrismaClient } from "@prisma/client";
 import * as usersRouter from "./routes/users";
 
 const app = express();
-
+const prisma = new PrismaClient();
 // view engine setupts
 
 app.set("view engine", "pug");
@@ -26,19 +26,19 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // PostgreSQLの設定
-const pool = new Pool({
-  user: "postgres",
-  host: "postgres",
-  database: "postgres_db",
-  password: "password",
-  port: 5432,
-});
+// const pool = new Pool({
+//   user: "postgres",
+//   host: "postgres",
+//   database: "postgres_db",
+//   password: "password",
+//   port: 5432,
+// });
 
 app.get("/users", usersRouter.index);
 
 app.get("/", async (_: Request, res: Response) => {
-  const { rows } = await pool.query("select * from users");
-  res.send(rows);
+  const users = await prisma.user.findMany();
+  res.json({ users });
 });
 
 // catch 404 and forward to error handler
