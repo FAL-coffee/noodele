@@ -12,9 +12,10 @@ const app = express();
 
 // view engine setupts
 
-app.set("views", path.join(__dirname, "views/"));
-app.set("views", "/src/views");
 app.set("view engine", "jade");
+// app.set("/views", path.join(__dirname, "../views"));
+app.set("views", "./src/views");
+// app.set("view engine", "jade");
 console.log("starting up");
 
 app.use(logger("dev"));
@@ -27,8 +28,13 @@ app.get("/users", usersRouter.index);
 
 // catch 404 and forward to error handler
 app.use((_: Request, res: Response) => {
-  res.send("404 error");
-  res.render("error");
+  // res.send("404 error");
+  // とりあえずrenderを試すために404でやったけど、404 (req,res,next)でerror.jadeを返すのは不適切っぽい
+  // -> 500 (err,req,res,next)のerr:Errorをres.render(error, err)するべきかと思われ
+  res.render("error", {
+    message: "error message",
+    error: { status: "status", stack: "stack" },
+  });
 });
 
 export default app;
