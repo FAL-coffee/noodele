@@ -7,3 +7,19 @@ services:
     tty: true
     volumes:
       - ../../src:/usr/app/src
+  postgres:
+    container_name: postgres
+    image: postgres:13
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres_db
+    hostname: postgres
+    volumes:
+      # - db_data:/var/lib/posrgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
+
+# volumes:
+#   db_data: {}
