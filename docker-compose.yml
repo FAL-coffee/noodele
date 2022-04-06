@@ -19,3 +19,5 @@ services:
     volumes:
       - db_data:/var/lib/posrgresql/data
       - ./initdb:/docker-entrypoint-initdb.d
+volumes:
+  db_data: {}
