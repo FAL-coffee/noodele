@@ -17,6 +17,7 @@
     },
     "extensions": [
         "eamodio.gitlens",
+        "Prisma.prisma",
         "svipas.prettier-plus",
         "dbaeumer.vscode-eslint",
         "ms-ceintl.vscode-language-pack-ja",
