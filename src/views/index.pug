@@ -3,3 +3,16 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  each item in items
+    span 
+      p id: #{item.id}
+      p name: #{item.name}
+      p age: #{item.age}
+    form(action="/users/delete?id=#{item.id}", method="post") 
+      input(type="submit", value="削除")
+  form(action="/users/new", method="post")
+    p name 
+    input(type="text")
+    p age 
+    input(type="number", name="age")
+    input(type="submit", value="登録")
