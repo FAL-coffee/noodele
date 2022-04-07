@@ -9,3 +9,8 @@ import { Request, Response } from "express";
 export const index = (_: Request, res: Response) => {
   res.status(200).send("respond with a resource");
 };
+
+export const create = (req: Request, res: Response) => {
+  console.log(req.body["name"]);
+  res.end()
+};
