@@ -35,10 +35,11 @@ app.use(express.static(path.join(__dirname, "public")));
 // });
 
 app.get("/users", usersRouter.index);
+app.post("/users/new", usersRouter.create);
 
 app.get("/", async (_: Request, res: Response) => {
   const users = await prisma.user.findMany();
-  res.json({ users });
+  res.render("index", { items: users });
 });
 
 // catch 404 and forward to error handler
