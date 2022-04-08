@@ -1,8 +1,24 @@
 body {
-  padding: 50px;
+  padding: 5px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+label {
+  margin-right: 5px;
+}
+
+.data-wrapper {
+  border: solid #7a7a7a 0.5px;
+  margin-bottom: 15px;
+  padding: 5px;
+  padding-right: 20px;
+  width: fit-content;
+}
+
+.input-element {
+  margin: 5px;
 }

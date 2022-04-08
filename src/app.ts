@@ -3,7 +3,7 @@
 import express, { Request, Response } from "express";
 // import express from 'express
 // import { Pool } from "pg";
-import path from "path";
+// import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { PrismaClient } from "@prisma/client";
@@ -23,7 +23,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("public"));
 
 // PostgreSQLの設定
 // const pool = new Pool({
@@ -35,10 +35,11 @@ app.use(express.static(path.join(__dirname, "public")));
 // });
 
 app.get("/users", usersRouter.index);
+app.post("/users/new", usersRouter.create);
 
 app.get("/", async (_: Request, res: Response) => {
   const users = await prisma.user.findMany();
-  res.json({ users });
+  res.render("index", { title: "home", items: users });
 });
 
 // catch 404 and forward to error handler
