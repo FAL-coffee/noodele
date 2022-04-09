@@ -36,6 +36,7 @@ app.use(express.static("public"));
 
 app.get("/users", usersRouter.index);
 app.post("/users/new", usersRouter.create);
+app.post("/users/delete/:id", usersRouter.deletion);
 
 app.get("/", async (_: Request, res: Response) => {
   const users = await prisma.user.findMany();
