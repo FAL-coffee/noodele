@@ -3,5 +3,4 @@ WORKDIR /src
 ENV PATH /src/node_modules/.bin:$PATH
 COPY . .
 RUN npm install
-RUN npx prisma migrate dev
 EXPOSE 3000
