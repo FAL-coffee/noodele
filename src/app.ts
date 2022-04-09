@@ -1,4 +1,4 @@
-// var createError = require('http-errors');
+var createError = require('http-errors');
 // import { HttpError } from "http-errors";
 import express, { Request, Response, NextFunction } from "express";
 // import express from 'express
@@ -6,11 +6,11 @@ import express, { Request, Response, NextFunction } from "express";
 // import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-// import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import * as usersRouter from "./routes/users";
 
 const app = express();
-// const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 // view engine setupts
 
 app.set("view engine", "pug");
@@ -25,15 +25,43 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static("public"));
 
-// PostgreSQLの設定
-// const pool = new Pool({
-//   user: "postgres",
-//   host: "postgres",
-//   database: "postgres_db",
-//   password: "password",
-//   port: 5432,
-// });
+const allowed = async(authorization:string):Promise<Boolean> => {
+  // ヘッダの値が"Basic "であることを確認
+  if (!authorization || !authorization.startsWith("Basic")) {
+    return false;
+  }
+  const allowedUsers = await prisma.user.findMany();
 
+  // const encodedPassword = authorization.substring(6);
+  // const decodedPassword = new Buffer(encodedPassword, 'base64').toString('binary');
+  // const colonIndex = decodedPassword.indexOf(':');
+  // const username = decodedPassword.slice(0, colonIndex);
+  // const password = decodedPassword.substring(colonIndex + 1);
+  // if (!!allowedUsers.find((user)=>{!!user}) && allowedUsers[username] === password) {
+  if (!!allowedUsers.find(()=>{true})){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+app.use('/*', async (req: Request, res: Response, next: NextFunction) => {
+  if (req.originalUrl === '/') {
+    next();
+  } else {
+    const authorization:string = req.headers["authorization"] || "";
+    if (await allowed(authorization)) {
+      next();
+    } else {
+      // res.setHeader('WWW-Authenticate', 'Basic realm="tutorial"');
+      res.setHeader('WWW-Authenticate', 'Basic');
+      next(createError(401));
+    }
+  }
+});
+    
+
+// app.use('/', indexRouter);
 app.use("/users", (_: Request, __: Response, next: NextFunction) => {
   next();
 });
