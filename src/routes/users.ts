@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 /* GET users listing. */
 export const index = async (_: Request, res: Response) => {
   const users = await prisma.user.findMany();
-  res.render("index", { title: "home", items: users });
+  res.render("users", { title: "users", items: users });
 };
 
 export const create = async (req: Request, res: Response) => {
@@ -17,12 +17,12 @@ export const create = async (req: Request, res: Response) => {
   await prisma.user.create({ data: req.body });
   // const users = await prisma.user.findMany();
   // res.render("index", { title: "home", items: users });
-  res.redirect("/");
+  res.redirect("/users");
 };
 
 export const deletion = async (req: Request, res: Response) => {
   await prisma.user.delete({ where: { id: parseInt(req.params?.id) } });
-  res.redirect("/");
+  res.redirect("/users");
 };
 
 export const update = async (req: Request, res: Response) => {
@@ -32,5 +32,5 @@ export const update = async (req: Request, res: Response) => {
     where: { id: parseInt(req.params?.id) },
     data: { name, email },
   });
-  res.redirect("/");
+  res.redirect("/users");
 };
