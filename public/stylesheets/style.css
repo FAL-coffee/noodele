@@ -22,3 +22,7 @@ label {
 .input-element {
   margin: 5px;
 }
+
+.data-form {
+  display: flex;
+}
