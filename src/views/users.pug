@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  h1= title
+  h2 data list
+  each item in items
+    .data-wrapper
+      form(action=`/users/update/${item.id}`, method="post")
+        div id: #{item.id}
+        .input-element
+          label name
+          input(type="text" name="name" value=item.name)
+        .input-element
+          label email
+          input(type="text" name="email" value=item.email)
+        .data-form
+          //- form(action=`/users/delete/${item.id}`, method="post") 
+          //-   input(type="submit", value="削除")
+          input(type="submit",value="更新")
+          button(formaction=`users/delete/${item.id}`, formmethod="post") 削除
+  h2 data create
+  form(action="/users/new", method="post")
+    div
+      .input-element
+        label name
+        input(type="text" name="name")
+      .input-element
+        label email
+        input(type="text" name="email")
+      input(type="submit", value="登録")
