@@ -18,3 +18,8 @@ export const create = async (req: Request, res: Response) => {
   // res.render("index", { title: "home", items: users });
   res.redirect("/");
 };
+
+export const deletion = async (req: Request, res: Response) => {
+  await prisma.user.delete({ where: { id: parseInt(req.params?.id) } });
+  res.redirect("/");
+};
