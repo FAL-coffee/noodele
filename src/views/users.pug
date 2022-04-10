@@ -13,6 +13,9 @@ block content
         .input-element
           label email
           input(type="text" name="email" value=item.email)
+        .input-element
+          label password
+          input(type="password" name="password" value=item.password)
         .data-form
           //- form(action=`/users/delete/${item.id}`, method="post") 
           //-   input(type="submit", value="削除")
@@ -27,4 +30,8 @@ block content
       .input-element
         label email
         input(type="text" name="email")
+      .input-element
+        label password
+        input(type="password" name="password")
       input(type="submit", value="登録")
+      input(type="reset", value="クリア")
