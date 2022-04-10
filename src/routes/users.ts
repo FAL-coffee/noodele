@@ -14,7 +14,8 @@ export const index = async (_: Request, res: Response) => {
 
 export const create = async (req: Request, res: Response) => {
   // console.log(req.body);
-  await prisma.user.create({ data: req.body });
+  const { name, email, password } = req.body;
+  await prisma.user.create({ data: { name, email, password } });
   // const users = await prisma.user.findMany();
   // res.render("index", { title: "home", items: users });
   res.redirect("/users");
@@ -27,10 +28,10 @@ export const deletion = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
   console.log(req.body);
-  const { name, email } = req.body;
+  const { name, email, password } = req.body;
   await prisma.user.update({
     where: { id: parseInt(req.params?.id) },
-    data: { name, email },
+    data: { name, email, password },
   });
   res.redirect("/users");
 };
