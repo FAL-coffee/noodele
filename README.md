@@ -8,7 +8,6 @@ express,
 postgres,
 ts
 
-コンテナの設定に問題があり、データの永続化が出来ていないため、コンテナ起動後にマイグレートを行う必要あり
 
 ```sh
 $ npx prisma migrate dev
