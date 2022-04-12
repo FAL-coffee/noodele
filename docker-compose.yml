@@ -18,8 +18,8 @@ services:
       POSTGRES_DB: postgres_db
     hostname: postgres
     volumes:
-      # - db_data:/var/lib/posrgresql/data
+      - db_data:/var/lib/posrgresql/data
       - ./initdb:/docker-entrypoint-initdb.d
 
-# volumes:
-#   db_data: {}
+volumes:
+  db_data: {}
