@@ -37,7 +37,7 @@ const allowed = async (authorization: string): Promise<Boolean> => {
   const username = decodedData.slice(0, colonIndex);
   const password = decodedData.substring(colonIndex + 1);
   const targetUser = await prisma.user.findUnique({
-    where: { email: username },
+    where: { name: username },
   });
   // console.log(targetUser);
   // if (!!allowedUsers.find((user)=>{!!user}) && allowedUsers[username] === password) {
