@@ -28,6 +28,9 @@ model Topic {
   userId    String
   createdAt DateTime @default(now())
   deleted   Boolean  @default(false)
+  tags      Tag[]    @relation("tag_topics")
+
+  @@map("topics")
 }
 
 model Tag {
@@ -35,4 +38,7 @@ model Tag {
   name      String
   createdAt DateTime @default(now())
   deleted   Boolean  @default(false)
+  topics    Topic[]  @relation("tag_topics")
+
+  @@map("tags")
 }
