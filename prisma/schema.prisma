@@ -11,9 +11,21 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   name      String   @unique
   password  String
+  createdAt DateTime @default(now())
+  deleted   Boolean  @default(false)
+  Topic     Topic[]
+}
+
+model Topic {
+  id        Int      @id @default(autoincrement())
+  title     String
+  contents  String   @db.VarChar(50)
+  anonymous Boolean  @default(false)
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
   createdAt DateTime @default(now())
   deleted   Boolean  @default(false)
 }
