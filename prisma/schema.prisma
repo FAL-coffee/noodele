@@ -29,3 +29,8 @@ model Topic {
   createdAt DateTime @default(now())
   deleted   Boolean  @default(false)
 }
+
+model Tag {
+  id   Int    @id @default(autoincrement())
+  name String
+}
