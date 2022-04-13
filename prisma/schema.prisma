@@ -17,3 +17,12 @@ model User {
   createdAt DateTime @default(now())
   deleted   Boolean  @default(false)
 }
+
+model Topic {
+  id        Int      @id @default(autoincrement())
+  title     String
+  contents  String   @db.VarChar(50)
+  anonymous Boolean  @default(false)
+  createdAt DateTime @default(now())
+  deleted   Boolean  @default(false)
+}
