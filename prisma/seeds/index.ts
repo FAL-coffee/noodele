@@ -3,11 +3,10 @@ const prisma = new PrismaClient();
 
 const seedCount: number = 3;
 
-const getUserSeeds = (): Prisma.UserCreateInput[] => {
-  const users: Prisma.UserCreateInput[] = [];
+const getUserSeeds = (): Prisma.UserCreateManyInput[] => {
+  const users: Prisma.UserCreateManyInput[] = [];
   for (let i = 0; i < seedCount; i++) {
     users.push({
-      id: `auto-id-${i}`,
       name: `testuser--${i}`,
       password: `password--${i}`,
     });
@@ -37,7 +36,7 @@ const getTagSeeds = (): Prisma.TagCreateManyInput[] => {
   return tags;
 };
 
-const userData: Prisma.UserCreateInput[] = getUserSeeds();
+const userData: Prisma.UserCreateManyInput[] = getUserSeeds();
 const topicData: Prisma.TopicCreateManyInput[] = getTopicSeeds();
 const tagData: Prisma.TagCreateManyInput[] = getTagSeeds();
 
