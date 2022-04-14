@@ -13,8 +13,8 @@ block content
         .input-element
           label password
           input(type="password" name="password" value=item.password)
-        div id: #{item.createdAt}
-        div id: #{item.deleted}
+        div createdAt: #{item.createdAt}
+        div deleted: #{item.deleted}
         .data-form
           //- form(action=`/users/delete/${item.id}`, method="post") 
           //-   input(type="submit", value="削除")
