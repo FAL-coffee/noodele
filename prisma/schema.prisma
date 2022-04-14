@@ -24,8 +24,8 @@ model Topic {
   title     String   @db.VarChar(50)
   contents  String
   anonymous Boolean  @default(false)
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
   createdAt DateTime @default(now())
   deleted   Boolean  @default(false)
   tags      Tag[]    @relation("tag_topics")

@@ -7,28 +7,26 @@ const getUserSeeds = (): Prisma.UserCreateInput[] => {
   const users: Prisma.UserCreateInput[] = [];
   for (let i = 0; i < seedCount; i++) {
     users.push({
-      id: `auto-id-${i}`,
-      name: `testuser--${i}`,
-      password: `password--${i}`,
+      name: `test-${i}`,
+      password: `test-${i}`,
     });
   }
   return users;
 };
 
-const getTopicSeeds = (): Prisma.TopicCreateManyInput[] => {
-  const topics: Prisma.TopicCreateManyInput[] = [];
+const getTopicSeeds = (): Prisma.TopicCreateInput[] => {
+  const topics: Prisma.TopicCreateInput[] = [];
   for (let i = 0; i < seedCount; i++) {
     topics.push({
       title: `testtopics-title--${i}`,
       contents: `testtopics-contents--${i}`,
-      userId: "auto-id-1",
     });
   }
   return topics;
 };
 
-const getTagSeeds = (): Prisma.TagCreateManyInput[] => {
-  const tags: Prisma.TagCreateManyInput[] = [];
+const getTagSeeds = (): Prisma.TagCreateInput[] => {
+  const tags: Prisma.TagCreateInput[] = [];
   for (let i = 0; i < seedCount; i++) {
     tags.push({
       name: `testtag--${i}`,
@@ -38,8 +36,8 @@ const getTagSeeds = (): Prisma.TagCreateManyInput[] => {
 };
 
 const userData: Prisma.UserCreateInput[] = getUserSeeds();
-const topicData: Prisma.TopicCreateManyInput[] = getTopicSeeds();
-const tagData: Prisma.TagCreateManyInput[] = getTagSeeds();
+const topicData: Prisma.TopicCreateInput[] = getTopicSeeds();
+const tagData: Prisma.TagCreateInput[] = getTagSeeds();
 
 const main = async () => {
   console.log(`Start seeding ...`);
