@@ -15,8 +15,8 @@ const transporter = nodemailer.createTransport({
   service: "Gmail",
   secure: true, // SSL
   auth: {
-    user: "fal.engineer.2001@gmail.com",
-    pass: "hayato0129F",
+    user: "",
+    pass: "",
   },
 });
 
@@ -45,7 +45,7 @@ export const validations = [
 export const sendRegistorationMail = async (req: Request) => {
   try {
     const { name, email, password } = req.body;
-    const targetColumns = await prisma.user.findFirst({
+    const targetColumns = await prisma.user.findUnique({
       where: { email: email },
     });
     console.log(targetColumns);
@@ -59,7 +59,7 @@ export const sendRegistorationMail = async (req: Request) => {
         password: bcrypt.hashSync(password, bcrypt.genSaltSync(8)),
       },
     });
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.findUnique({
       where: { email: email },
     });
     if (!user) throw new Error("500");
@@ -82,8 +82,8 @@ export const sendRegistorationMail = async (req: Request) => {
 
     // 本登録メールを送信
     transporter.sendMail({
-      from: "fal.engineer.2001@gmail.com",
-      to: "neighbor.fal@gmail.com",
+      from: "",
+      to: "",
       text:
         "以下のURLをクリックして本登録を完了させてください。\n\n" +
         verificationUrl,
