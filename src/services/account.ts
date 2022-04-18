@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
   service: "Gmail",
   secure: true,
   auth: {
-    user: env.FROM_EMAIL_ADDRESS,
+    user: env.FROM_EMAIL_ADRESS,
     pass: env.FROM_EMAIL_PASSWORD,
   },
 });
@@ -84,7 +84,7 @@ export const sendRegistorationMail = async (req: Request) => {
 
     // 本登録メールを送信
     transporter.sendMail({
-      from: env.FROM_EMAIL_ADDRESS,
+      from: env.FROM_EMAIL_ADRESS,
       to: user.email,
       text:
         "以下のURLをクリックして本登録を完了させてください。\n\n" +
