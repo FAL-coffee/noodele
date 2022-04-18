@@ -69,7 +69,7 @@ app.use("/users", (_: Request, __: Response, next: NextFunction) => {
 });
 app.get("/users", usersRouter.index);
 app.post("/users/new", usersRouter.create);
-app.post("/users/delete/:id", usersRouter.deletion);
+app.post("/users/delete/:id", usersRouter.remove);
 // app.put("/users/update/:id", usersRouter.update);
 app.post("/users/update/:id", usersRouter.update);
 

@@ -21,7 +21,7 @@ export const create = async (req: Request, res: Response) => {
   res.redirect("/users");
 };
 
-export const deletion = async (req: Request, res: Response) => {
+export const remove = async (req: Request, res: Response) => {
   await prisma.user.delete({ where: { id: req.params?.id } });
   res.redirect("/users");
 };
