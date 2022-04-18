@@ -7,7 +7,7 @@ import express, { Request, Response, NextFunction } from "express";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { PrismaClient } from "@prisma/client";
-import * as usersRouter from "./routes/users";
+import router from "./routes/";
 
 const app = express();
 const prisma = new PrismaClient();
@@ -63,19 +63,7 @@ app.use("/*", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// app.use('/', indexRouter);
-app.use("/users", (_: Request, __: Response, next: NextFunction) => {
-  next();
-});
-app.get("/users", usersRouter.index);
-app.post("/users/new", usersRouter.create);
-app.post("/users/delete/:id", usersRouter.remove);
-// app.put("/users/update/:id", usersRouter.update);
-app.post("/users/update/:id", usersRouter.update);
-
-app.get("/", async (_: Request, res: Response) => {
-  res.redirect("/users");
-});
+app.use("/", router);
 
 // catch 404 and forward to error handler
 app.use((_: Request, res: Response) => {
