@@ -14,8 +14,8 @@ export const index = async (_: Request, res: Response) => {
 
 export const create = async (req: Request, res: Response) => {
   // console.log(req.body);
-  const { name, password } = req.body;
-  await prisma.user.create({ data: { name, password } });
+  const { name, password, email } = req.body;
+  await prisma.user.create({ data: { name, password, email } });
   // const users = await prisma.user.findMany();
   // res.render("index", { title: "home", items: users });
   res.redirect("/users");
