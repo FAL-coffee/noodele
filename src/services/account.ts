@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
   service: "Gmail",
-  secure: true, // SSL
+  secure: true,
   auth: {
     user: env.FROM_EMAIL_ADDRESS,
     pass: env.FROM_EMAIL_PASSWORD,
@@ -51,6 +51,10 @@ export const sendRegistorationMail = async (req: Request) => {
       throw new Error("すでに登録されているメールアドレスです。");
     }
 
+    // emailからuser検索→emailVarifiedAtに値が入っていればerror,
+    // emailVarifiedAtにデータが無ければcreate -> emailが既存であれば、unique制約に引っかかる。
+    // データがあればデータを返す、データが無ければ作成した情報を返すutil関数を作ってもいいかもしれない
+    // 少なくとも現状の実装はバグなので直すこと
     await prisma.user.create({
       data: {
         ...{ name, email },
@@ -63,7 +67,7 @@ export const sendRegistorationMail = async (req: Request) => {
     if (!user) throw new Error("500");
     const hash = crypto.createHash("sha1").update(email).digest("hex");
     const now = new Date();
-    const expiration = now.setHours(now.getHours() + 1); // 1時間だけ有効
+    const expiration = now.setHours(now.getHours() + 1);
     let verificationUrl =
       req.get("origin") +
       "/verify/" +
@@ -81,7 +85,7 @@ export const sendRegistorationMail = async (req: Request) => {
     // 本登録メールを送信
     transporter.sendMail({
       from: env.FROM_EMAIL_ADDRESS,
-      to: "neighbor.fal@gmail.com",
+      to: user.email,
       text:
         "以下のURLをクリックして本登録を完了させてください。\n\n" +
         verificationUrl,
