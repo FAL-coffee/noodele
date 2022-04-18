@@ -8,6 +8,8 @@ block content
       .card-body 
         .card-title 
           h3 id: #{item.id}
+        .card-subtitle 
+          h4 email: #{item.email}
         form(action=`/users/update/${item.id}`, method="post")
           .form-group
             .input-group.mb-1
@@ -24,8 +26,11 @@ block content
   form(action="/users/new" method="post")
     div
       .form-floating.mb-3
-        input.form-control#floadingInput(type="text" name="name")
-        label(for="floatingInput") name
+        input.form-control#floadingEmailInput(type="text" name="email")
+        label(for="floadingEmailInput") email
+      .form-floating.mb-3
+        input.form-control#floadingNameInput(type="text" name="name")
+        label(for="floadingNameInput") name
       .form-floating.mb-3
         input.form-control#floatingPassword(type="password" name="password")
         label(for="floatingPassword") password
