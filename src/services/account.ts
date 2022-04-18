@@ -5,18 +5,17 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
+require("dotenv").config();
 
-// envにする
-const appKey = "crypto";
-
+const env = process.env;
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
   service: "Gmail",
   secure: true, // SSL
   auth: {
-    user: "",
-    pass: "",
+    user: env.FROM_EMAIL_ADDRESS,
+    pass: env.FROM_EMAIL_PASSWORD,
   },
 });
 
@@ -48,7 +47,6 @@ export const sendRegistorationMail = async (req: Request) => {
     const targetColumns = await prisma.user.findUnique({
       where: { email: email },
     });
-    console.log(targetColumns);
     if (targetColumns?.emailVarifiedAt) {
       throw new Error("すでに登録されているメールアドレスです。");
     }
@@ -75,15 +73,15 @@ export const sendRegistorationMail = async (req: Request) => {
       "?expires=" +
       expiration;
     const signature = crypto
-      .createHmac("sha256", appKey)
+      .createHmac("sha256", env.CRYPT_KEY ? env.CRYPT_KEY : "")
       .update(verificationUrl)
       .digest("hex");
     verificationUrl += "&signature=" + signature;
 
     // 本登録メールを送信
     transporter.sendMail({
-      from: "",
-      to: "",
+      from: env.FROM_EMAIL_ADDRESS,
+      to: "neighbor.fal@gmail.com",
       text:
         "以下のURLをクリックして本登録を完了させてください。\n\n" +
         verificationUrl,
