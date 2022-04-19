@@ -33,12 +33,6 @@ export const validations = [
     .withMessage("この項目は必須入力です。")
     .isLength({ min: 8, max: 25 })
     .withMessage("8文字から25文字にしてください。"),
-  // .custom((_, { req }) => {
-  //   if (req.body.password !== req.body.passwordConfirmation) {
-  //     throw new Error("パスワード（確認）と一致しません。");
-  //   }
-  //   return true;
-  // }),
 ];
 
 export const sendRegistorationMail = async (req: Request) => {
@@ -47,24 +41,19 @@ export const sendRegistorationMail = async (req: Request) => {
     const targetColumns = await prisma.user.findUnique({
       where: { email: email },
     });
-    if (targetColumns?.emailVarifiedAt) {
-      throw new Error("すでに登録されているメールアドレスです。");
-    }
+    if (!!targetColumns)
+      throw Error("すでに登録されているメールアドレスです。");
 
-    // emailからuser検索→emailVarifiedAtに値が入っていればerror,
-    // emailVarifiedAtにデータが無ければcreate -> emailが既存であれば、unique制約に引っかかる。
-    // データがあればデータを返す、データが無ければ作成した情報を返すutil関数を作ってもいいかもしれない
-    // 少なくとも現状の実装はバグなので直すこと
-    await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         ...{ name, email },
         password: bcrypt.hashSync(password, bcrypt.genSaltSync(8)),
       },
     });
-    const user = await prisma.user.findUnique({
-      where: { email: email },
-    });
-    if (!user) throw new Error("500");
+    if (!user)
+      throw Error(
+        "ユーザー情報の作成に失敗しました。入力を再度よく確認してください。"
+      );
     const hash = crypto.createHash("sha1").update(user.email).digest("hex");
     const now = new Date();
     const expiration = now.setHours(now.getHours() + 1);
@@ -104,9 +93,8 @@ export const accountEmailVerify = async (req: IVerifyRequest) => {
   try {
     const userId = req.params.id;
     const user = await prisma.user.findUnique({ where: { id: userId } });
-    if (!user) throw new Error("このURLは正しくありません。");
+    if (!user) throw Error("このURLは正しくありません。");
     else if (!!user.emailVarifiedAt) return;
-    // ⇑ returnじゃなく、ログインか何かしたい
     else {
       const now = new Date();
       const hash = crypto.createHash("sha1").update(user.email).digest("hex");
@@ -122,7 +110,6 @@ export const accountEmailVerify = async (req: IVerifyRequest) => {
       if (!isCorrectHash || !isCorrectSignature || isExpired)
         throw new Error("このURLは期限切れか、正しくありません。");
       else {
-        // 本登録処理
         await prisma.user.update({
           where: { id: userId },
           data: { emailVarifiedAt: new Date() },
