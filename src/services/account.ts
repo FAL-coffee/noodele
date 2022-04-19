@@ -66,7 +66,6 @@ export const sendRegistorationMail = async (req: Request) => {
     });
     if (!user) throw new Error("500");
     const hash = crypto.createHash("sha1").update(user.email).digest("hex");
-    console.log(hash);
     const now = new Date();
     const expiration = now.setHours(now.getHours() + 1);
     let verificationUrl =
