@@ -17,6 +17,7 @@ $ npx prisma db seed
 
 .env
 ```
+APP_URL="http://localhost:3000"
 CRYPT_KEY=
 FROM_EMAIL_ADDRESS=
 FROM_EMAIL_PASSWORD=
