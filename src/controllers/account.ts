@@ -21,7 +21,11 @@ export const create = async (req: Request, res: Response) => {
     await sendRegistorationMail(req);
     res.status(200).json({ message: "send complate" });
   } catch (error) {
-    throw error;
+    res.render("error", {
+      message: "error message",
+      error: { status: "status", stack: error },
+      retryURL: `${env.APP_URL}/account/new`,
+    });
   }
 };
 
@@ -32,6 +36,9 @@ export const verify = async (req: IVerifyRequest, res: Response) => {
       `<div>ユーザー本登録を完了しましたぁ！👍<br/>早速ログインしましょう <br/><a href="${env.APP_URL}/topics">${env.APP_URL}/topics</a></div>`
     );
   } catch (error) {
-    throw error;
+    res.render("error", {
+      message: "error message",
+      error: { status: "status", stack: error },
+    });
   }
 };
