@@ -67,12 +67,17 @@ app.use("/", router);
 
 // catch 404 and forward to error handler
 app.use((_: Request, res: Response) => {
-  // res.send("404 error");
-  // とりあえずrenderを試すために404でやったけど、404 (req,res,next)でerror.jadeを返すのは不適切っぽい
-  // -> 500 (err,req,res,next)のerr:Errorをres.render(error, err)するべきかと思われ
   res.render("error", {
     message: "error message",
-    error: { status: "status", stack: "stack" },
+    error: { status: "status404", stack: "stack" },
+  });
+});
+
+// catch 500 and forward to error handler
+app.use((error: Error, _: Request, res: Response, __: NextFunction) => {
+  res.render("error", {
+    message: "error message",
+    error: { status: "status500", stack: error },
   });
 });
 
