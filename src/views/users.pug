@@ -18,8 +18,7 @@ block content
             .input-group.mb-1
               label.col-form-label password
               input.form-control(type="password" name="password" value=item.password)
-            div createdAt: #{item.createdAt}
-            div deleted: #{item.deleted}
+            div emailVarifiedAt: #{item.emailVarifiedAt}
             input.btn.btn-primary.btn-sm(type="submit" value="更新")
             button.btn.btn-danger.btn-sm(formaction=`users/delete/${item.id}`, formmethod="post") 削除
   h2 data create
