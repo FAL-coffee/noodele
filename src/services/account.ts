@@ -65,12 +65,13 @@ export const sendRegistorationMail = async (req: Request) => {
       where: { email: email },
     });
     if (!user) throw new Error("500");
-    const hash = crypto.createHash("sha1").update(email).digest("hex");
+    const hash = crypto.createHash("sha1").update(user.email).digest("hex");
+    console.log(hash);
     const now = new Date();
     const expiration = now.setHours(now.getHours() + 1);
     let verificationUrl =
       req.get("origin") +
-      "/verify/" +
+      "/account/verify/" +
       user.id +
       "/" +
       hash +
@@ -91,6 +92,44 @@ export const sendRegistorationMail = async (req: Request) => {
         verificationUrl,
       subject: "本登録メール",
     });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export interface IVerifyRequest extends Request {
+  query: { expires: string; signature: string };
+}
+
+export const accountEmailVerify = async (req: IVerifyRequest) => {
+  try {
+    const userId = req.params.id;
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) throw new Error("このURLは正しくありません。");
+    else if (!!user.emailVarifiedAt) return;
+    // ⇑ returnじゃなく、ログインか何かしたい
+    else {
+      const now = new Date();
+      const hash = crypto.createHash("sha1").update(user.email).digest("hex");
+      const isCorrectHash = hash === req.params.hash;
+      const isExpired = now.getTime() > parseInt(req.query.expires);
+      const verificationUrl =
+        env.APP_URL + req.originalUrl.split("&signature=")[0];
+      const signature = crypto
+        .createHmac("sha256", env.CRYPT_KEY ? env.CRYPT_KEY : "")
+        .update(verificationUrl)
+        .digest("hex");
+      const isCorrectSignature = signature === req.query.signature;
+      if (!isCorrectHash || !isCorrectSignature || isExpired)
+        throw new Error("このURLは期限切れか、正しくありません。");
+      else {
+        // 本登録処理
+        await prisma.user.update({
+          where: { id: userId },
+          data: { emailVarifiedAt: new Date() },
+        });
+      }
+    }
   } catch (error) {
     throw error;
   }
