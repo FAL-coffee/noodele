@@ -1,0 +1,28 @@
+extends ../layout
+//- include ./_config.pug
+//- var DATA_POST_FORM_ACTION = "/account/new"
+
+block content
+  .card.mt-5 
+    .card-header
+      h4.card-title.text-center.mb-4.mt-1 アカウント作成
+    article.card-body 
+      p.text-success.text-center メールアドレス認証フォーム
+      form.mt-5(action="/account/new" method="post")
+        .form-group.mb-4 
+          .input-group 
+            span.input-group-text 
+              i.fa.fa-user 
+            input.form-control(name="name" placeholder="Name" type="text")
+        .form-group.mb-4 
+          .input-group 
+            span.input-group-text 
+              i.fa.fa-envelope 
+            input.form-control(name="email" placeholder="Email" type="email")
+        .form-group.mb-4 
+          .input-group 
+            span.input-group-text 
+              i.fa.fa-lock 
+            input.form-control(name="password" placeholder="******" type="password")
+        .d-grid.gap-2
+          button.btn.btn-primary.btn-block(type="submit") 認証メールを送信する

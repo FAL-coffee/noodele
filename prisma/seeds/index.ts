@@ -8,6 +8,7 @@ const getUserSeeds = (): Prisma.UserCreateInput[] => {
   for (let i = 0; i < seedCount; i++) {
     users.push({
       name: `test-${i}`,
+      email: `test${i}@test.com`,
       password: `test-${i}`,
     });
   }

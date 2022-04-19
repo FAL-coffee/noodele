@@ -7,7 +7,7 @@ import express, { Request, Response, NextFunction } from "express";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { PrismaClient } from "@prisma/client";
-import * as usersRouter from "./routes/users";
+import router from "./routes/";
 
 const app = express();
 const prisma = new PrismaClient();
@@ -37,7 +37,7 @@ const allowed = async (authorization: string): Promise<Boolean> => {
   const username = decodedData.slice(0, colonIndex);
   const password = decodedData.substring(colonIndex + 1);
   const targetUser = await prisma.user.findUnique({
-    where: { name: username },
+    where: { email: username },
   });
   // console.log(targetUser);
   // if (!!allowedUsers.find((user)=>{!!user}) && allowedUsers[username] === password) {
@@ -63,28 +63,21 @@ app.use("/*", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// app.use('/', indexRouter);
-app.use("/users", (_: Request, __: Response, next: NextFunction) => {
-  next();
-});
-app.get("/users", usersRouter.index);
-app.post("/users/new", usersRouter.create);
-app.post("/users/delete/:id", usersRouter.remove);
-// app.put("/users/update/:id", usersRouter.update);
-app.post("/users/update/:id", usersRouter.update);
-
-app.get("/", async (_: Request, res: Response) => {
-  res.redirect("/users");
-});
+app.use("/", router);
 
 // catch 404 and forward to error handler
 app.use((_: Request, res: Response) => {
-  // res.send("404 error");
-  // とりあえずrenderを試すために404でやったけど、404 (req,res,next)でerror.jadeを返すのは不適切っぽい
-  // -> 500 (err,req,res,next)のerr:Errorをres.render(error, err)するべきかと思われ
   res.render("error", {
     message: "error message",
-    error: { status: "status", stack: "stack" },
+    error: { status: "status404", stack: "stack" },
+  });
+});
+
+// catch 500 and forward to error handler
+app.use((error: Error, _: Request, res: Response, __: NextFunction) => {
+  res.render("error", {
+    message: "error message",
+    error: { status: "status500", stack: error },
   });
 });
 
