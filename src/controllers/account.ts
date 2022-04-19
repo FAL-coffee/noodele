@@ -5,7 +5,9 @@ import {
   accountEmailVerify,
   IVerifyRequest,
 } from "../services/account";
+require("dotenv").config();
 
+const env = process.env;
 export const index = async (_: Request, res: Response) => {
   res.render("account");
 };
@@ -26,7 +28,9 @@ export const create = async (req: Request, res: Response) => {
 export const verify = async (req: IVerifyRequest, res: Response) => {
   try {
     await accountEmailVerify(req);
-    res.send("完了！");
+    res.send(
+      `<div>ユーザー本登録を完了しましたぁ！👍<br/>早速ログインしましょう <br/><a href="${env.APP_URL}/topics">${env.APP_URL}/topics</a></div>`
+    );
   } catch (error) {
     throw error;
   }
