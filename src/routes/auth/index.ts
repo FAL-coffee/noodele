@@ -17,7 +17,11 @@ const allowed = async (authorization: string): Promise<Boolean> => {
   const targetUser = await prisma.user.findUnique({
     where: { email: username },
   });
-  if (!!targetUser && targetUser.password === password) {
+  if (
+    !!targetUser &&
+    !!targetUser.emailVarifiedAt &&
+    targetUser.password === password
+  ) {
     return true;
   } else {
     return false;

@@ -8,30 +8,16 @@ block content
       .card-body 
         .card-title 
           h3 id: #{item.id}
-        .card-subtitle 
-          h4 email: #{item.email}
         form(action=`/users/update/${item.id}`, method="post")
           .form-group
             .input-group.mb-1
               label.col-form-label name
               input.form-control(type="text" name="name" placeholder="name" value=item.name)
             .input-group.mb-1
-              label.col-form-label password
-              input.form-control(type="password" name="password" value=item.password)
-            div emailVarifiedAt: #{item.emailVarifiedAt}
+              label.col-form-label email
+              input.form-control(type="text" name="email" placeholder="email" value=item.email)
+            .input-group.mb-1
+              label.col-form-label emailVarifiedAt
+              input.form-control(type="text" name="emailVarifiedAt" placeholder="emailVarifiedAt" value=item.emailVarifiedAt)
             input.btn.btn-primary.btn-sm(type="submit" value="更新")
             button.btn.btn-danger.btn-sm(formaction=`users/delete/${item.id}`, formmethod="post") 削除
-  h2 data create
-  form(action="/users/new" method="post")
-    div
-      .form-floating.mb-3
-        input.form-control#floadingEmailInput(type="text" name="email")
-        label(for="floadingEmailInput") email
-      .form-floating.mb-3
-        input.form-control#floadingNameInput(type="text" name="name")
-        label(for="floadingNameInput") name
-      .form-floating.mb-3
-        input.form-control#floatingPassword(type="password" name="password")
-        label(for="floatingPassword") password
-      input.btn.btn-primary.btn-sm(type="submit" value="登録")
-      input.btn.btn-secondary.btn-sm(type="reset" value="クリア")
