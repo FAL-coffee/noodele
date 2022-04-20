@@ -17,7 +17,7 @@ export const remove = async (req: Request, res: Response) => {
   try {
     const userId = req.params.id;
     await services.removeUserById(userId);
-    res.redirect("users");
+    res.redirect("/");
   } catch (error) {
     res.render("error", {
       message: "error message",
@@ -31,7 +31,7 @@ export const update = async (req: Request, res: Response) => {
     const userId = req.params.id;
     const data = req.body;
     await services.updateUserById(userId, data);
-    res.redirect("users");
+    res.redirect("/");
   } catch (error) {
     res.render("error", {
       message: "error message",
