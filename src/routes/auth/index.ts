@@ -1,6 +1,8 @@
 import createError from "http-errors";
 import express, { Request, Response, NextFunction } from "express";
+import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
+import topicsRouter from "./topics";
 const router = express.Router({ mergeParams: true });
 const prisma = new PrismaClient();
 
@@ -20,7 +22,7 @@ const allowed = async (authorization: string): Promise<Boolean> => {
   if (
     !!targetUser &&
     !!targetUser.emailVarifiedAt &&
-    targetUser.password === password
+    bcrypt.compareSync(password, targetUser.password)
   ) {
     return true;
   } else {
@@ -38,5 +40,5 @@ router.use("/*", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-router.use("/topics", () => {});
+router.use("/topics", topicsRouter);
 export default router;
