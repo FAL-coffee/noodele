@@ -1,30 +1,25 @@
 extends layout
 
 block content
-  h1= title
-  h2 data list
-  each item in items
-    .data-wrapper
-      form(action=`/users/update/${item.id}`, method="post")
-        div id: #{item.id}
-        .input-element
-          label name
-          input(type="text" name="name" value=item.name)
-        .input-element
-          label email
-          input(type="text" name="email" value=item.email)
-        .data-form
-          //- form(action=`/users/delete/${item.id}`, method="post") 
-          //-   input(type="submit", value="削除")
-          input(type="submit",value="更新")
-          button(formaction=`users/delete/${item.id}`, formmethod="post") 削除
-  h2 data create
-  form(action="/users/new", method="post")
-    div
-      .input-element
-        label name
-        input(type="text" name="name")
-      .input-element
-        label email
-        input(type="text" name="email")
-      input(type="submit", value="登録")
+  h1 Noodele 
+  h2 みんなのnode.jsクソコードまとめ
+    .d-flex.justify-content-center
+      .card 
+        .card-title
+          h3 ユーザー一覧（テスト用機能）
+        .card-body
+          a(href="/users") ユーザー一覧（/users）
+      .card 
+        .card-title
+          h3 アカウント作成画面
+        .card-subtitle 
+          h4 メールアドレスによる認証付きのアカウント作成を行います。
+        .card-body
+          a(href="/account/new") アカウント作成（/account/new）
+      .card 
+        .card-title
+          h3 クソコード一覧
+        .card-subtitle 
+          h4 必須ログインです。先にアカウントを作成してください。
+        .card-body
+          a(href="/auth/topics") トピック一覧（/topics）
