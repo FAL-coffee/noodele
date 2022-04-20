@@ -3,7 +3,7 @@ import * as userController from "../controllers/users";
 const router = express.Router({ mergeParams: true });
 
 router.get("/", userController.index);
-router.post("/delete/:id", userController.index);
-router.post("/update/:id", userController.index);
+router.post("/delete/:id", userController.remove);
+router.post("/update/:id", userController.update);
 
 export default router;
