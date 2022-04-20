@@ -1,7 +1,9 @@
+// import express, { Request, Response } from "express";
 import express from "express";
-import * as userController from "../controllers/users";
 const router = express.Router({ mergeParams: true });
 
-router.get("/", userController.index);
+router.get("/", () => {
+  console.log("catch");
+});
 
 export default router;
