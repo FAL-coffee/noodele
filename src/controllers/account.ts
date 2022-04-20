@@ -33,7 +33,7 @@ export const verify = async (req: IVerifyRequest, res: Response) => {
   try {
     await accountEmailVerify(req);
     res.send(
-      `<div>ユーザー本登録を完了しましたぁ！👍<br/>早速ログインしましょう <br/><a href="${env.APP_URL}/topics">${env.APP_URL}/topics</a></div>`
+      `<div>ユーザー本登録を完了しましたぁ！👍<br/>早速ログインしましょう <br/><a href="${env.APP_URL}/auth/topics">${env.APP_URL}/auth/topics</a></div>`
     );
   } catch (error) {
     res.render("error", {
