@@ -15,8 +15,22 @@ export const index = async (_: Request, res: Response) => {
 
 export const remove = async (req: Request, res: Response) => {
   try {
-    const tarId = req.params.id;
-    await services.removeUserById(tarId);
+    const userId = req.params.id;
+    await services.removeUserById(userId);
+    res.redirect("users");
+  } catch (error) {
+    res.render("error", {
+      message: "error message",
+      error: { status: "status", stack: error },
+    });
+  }
+};
+
+export const update = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id;
+    const data = req.body;
+    await services.updateUserById(userId, data);
     res.redirect("users");
   } catch (error) {
     res.render("error", {

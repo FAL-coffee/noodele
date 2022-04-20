@@ -17,3 +17,19 @@ export const removeUserById = async (userId: string) => {
     throw error;
   }
 };
+
+interface IUpdateUserByIdData {
+  name: string;
+  email: string;
+  emailVarifiedAt: Date;
+}
+export const updateUserById = async (
+  userId: string,
+  data: IUpdateUserByIdData
+) => {
+  try {
+    await prisma.user.update({ where: { id: userId }, data: data });
+  } catch (error) {
+    throw error;
+  }
+};
