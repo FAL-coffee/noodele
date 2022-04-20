@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import router from "./routes/";
@@ -24,12 +24,12 @@ app.use((_: Request, res: Response) => {
   });
 });
 
-// catch 500 and forward to error handler
-app.use((error: Error, _: Request, res: Response, __: NextFunction) => {
-  res.render("error", {
-    message: "error message",
-    error: { status: "status500", stack: error },
-  });
-});
+// // catch 500 and forward to error handler
+// app.use((error: Error, _: Request, res: Response, __: NextFunction) => {
+//   res.render("error", {
+//     message: "error message",
+//     error: { status: "status500", stack: error },
+//   });
+// });
 
 export default app;
