@@ -5,7 +5,6 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-require("dotenv").config();
 
 const env = process.env;
 const transporter = nodemailer.createTransport({
