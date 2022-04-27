@@ -1,3 +1,4 @@
+require("dotenv").config();
 import app from "../app";
 import * as http from "http";
 import * as debugModule from "debug";

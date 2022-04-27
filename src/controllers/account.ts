@@ -5,7 +5,6 @@ import {
   accountEmailVerify,
   IVerifyRequest,
 } from "../services/account";
-require("dotenv").config();
 
 const env = process.env;
 export const index = async (_: Request, res: Response) => {
