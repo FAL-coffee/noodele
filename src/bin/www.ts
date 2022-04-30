@@ -91,3 +91,13 @@ function onListening(): void {
 
   debug("Listening on " + bind());
 }
+
+process.on("uncaughtException", (err) => {
+  console.error("There was an uncaught error", err);
+  process.exit(1);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.log("There was an unhandled error", err);
+  process.exit(1);
+});
