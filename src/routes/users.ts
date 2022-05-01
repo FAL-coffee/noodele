@@ -1,5 +1,4 @@
 import express, { Request, Response } from "express";
-import { Prisma } from "@prisma/client";
 import { UserController } from "../controllers/UserController";
 import { UpdateUserByIdData } from "../services/users";
 const router = express.Router({ mergeParams: true });
