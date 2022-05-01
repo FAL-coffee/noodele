@@ -1,6 +1,6 @@
 import express from "express";
 import * as accountController from "../controllers/account";
-import { validations } from "../services/account";
+import { validations } from "../middlewares/RegistorationFormValidations";
 const router = express.Router({ mergeParams: true });
 
 router.get("/new", accountController.index);
