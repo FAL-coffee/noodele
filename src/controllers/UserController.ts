@@ -1,5 +1,13 @@
-import { Prisma, User } from "@prisma/client";
 import * as services from "../services/users";
+
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  emailVarifiedAt: Date | null;
+  password: string;
+  deleted: boolean;
+};
 
 type ListResponse = Promise<{
   status: 200 | 500;
@@ -15,7 +23,7 @@ type DeleteResponse = Promise<{
 
 type UpdateRequest = {
   userId: string;
-  data: Prisma.UserUpdateInput;
+  data: services.UpdateUserByIdData;
 };
 
 type UpdateResponse = Promise<{

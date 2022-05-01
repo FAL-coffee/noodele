@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
 import { UserController } from "../controllers/UserController";
+import { UpdateUserByIdData } from "../services/users";
 const router = express.Router({ mergeParams: true });
 const userController = new UserController();
 
@@ -42,7 +43,7 @@ router.post(
 router.post(
   "/update/:id",
   async (
-    req: Request<UpdateParams, any, Prisma.UserUpdateInput>,
+    req: Request<UpdateParams, any, UpdateUserByIdData>,
     res: Response
   ) => {
     const userId = req.params.userId;

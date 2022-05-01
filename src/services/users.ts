@@ -1,5 +1,11 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
+
+export type UpdateUserByIdData = {
+  name: string;
+  email: string;
+  emailVarifiedAt: Date;
+};
 
 export const getUserList = async () => {
   try {
@@ -20,7 +26,7 @@ export const removeUserById = async (userId: string) => {
 
 export const updateUserById = async (
   userId: string,
-  data: Prisma.UserUpdateInput
+  data: UpdateUserByIdData
 ) => {
   try {
     await prisma.user.update({ where: { id: userId }, data: data });
