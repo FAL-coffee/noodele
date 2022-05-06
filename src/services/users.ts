@@ -1,6 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
+export type UpdateUserByIdData = {
+  name: string;
+  email: string;
+  emailVarifiedAt: Date;
+};
+
 export const getUserList = async () => {
   try {
     const users = await prisma.user.findMany();
@@ -18,14 +24,9 @@ export const removeUserById = async (userId: string) => {
   }
 };
 
-interface IUpdateUserByIdData {
-  name: string;
-  email: string;
-  emailVarifiedAt: Date;
-}
 export const updateUserById = async (
   userId: string,
-  data: IUpdateUserByIdData
+  data: UpdateUserByIdData
 ) => {
   try {
     await prisma.user.update({ where: { id: userId }, data: data });
